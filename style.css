@@ -1,0 +1,18 @@
+/*
+Theme Name: WPTV 1.0
+Theme URI: https://jeandaviddaviet.fr
+Author: Jean-David Daviet
+Author URI: https://jeandaviddaviet.fr
+Description: Thème 1.0 de WordPress TV
+Version: 1.0
+*/
+.card-body {
+	display: none;
+}
+.card-title {
+	padding: 10px;
+}
+.card img {
+	max-width: 100%;
+	height: auto;
+}

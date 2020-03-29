@@ -1,0 +1,7 @@
+sftp-config.json
+node_modules
+npm-debug.log
+package-lock.json
+/vendor/
+dploy.yaml
+composer.lock
