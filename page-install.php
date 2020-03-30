@@ -1,8 +1,7 @@
 <?php
 
 $last_url = $wpdb->get_var("SELECT url FROM talks ORDER BY id DESC LIMIT 1");
-// $file = "./pupeeter/numbers_backup/all_reverse.csv";
-$file = "./pupeeter/new.csv";
+$file = get_template_directory() . "/scrapper/new.csv";
 
 $rows = file($file);
 $last_row = array_pop($rows);
