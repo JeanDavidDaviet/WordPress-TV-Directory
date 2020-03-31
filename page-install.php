@@ -1,6 +1,6 @@
 <?php
 
-$last_url = $wpdb->get_var("SELECT url FROM talks ORDER BY id DESC LIMIT 1");
+$last_url = $wpdb->get_var("SELECT url FROM ". $wpdb->prefix . "talks ORDER BY id DESC LIMIT 1");
 $file = get_template_directory() . "/scrapper/new.csv";
 
 $rows = file($file);
@@ -109,7 +109,7 @@ if (($handle = fopen($file, "r")) !== FALSE && $last_line[2] !== $last_url) {
 			$talk_id = null;
 
 			if(trim($data[1]) != ""){
-				$talk = $wpdb->get_var('SELECT url FROM talks WHERE url = "' . esc_sql($data[1]) . '"' );
+				$talk = $wpdb->get_var('SELECT url FROM '. $wpdb->prefix . 'talks WHERE url = "' . esc_sql($data[1]) . '"' );
 				if(is_null($talk)){
 					$insertion = $wpdb->insert('talks', $insert, $insert_format);
 					if($insertion){
@@ -124,14 +124,14 @@ if (($handle = fopen($file, "r")) !== FALSE && $last_line[2] !== $last_url) {
 			if($insertion){
 
 				if(trim($data[9]) != ""){
-					$lang = $wpdb->get_var('SELECT title FROM languages WHERE title = "' . esc_sql($data[9]) . '"' );
+					$lang = $wpdb->get_var('SELECT title FROM '. $wpdb->prefix . 'languages WHERE title = "' . esc_sql($data[9]) . '"' );
 					if(is_null($lang)){
 						$wpdb->insert('languages', array('title' => $data[9], 'slug' => sanitize_title($data[9]), 'url' => $data[10]), array('%s', '%s'));
 					}
 				}
 
 				if(trim($data[5]) != ""){
-					$event = $wpdb->get_var('SELECT title FROM events WHERE title = "' . esc_sql($data[5]) . '"' );
+					$event = $wpdb->get_var('SELECT title FROM '. $wpdb->prefix . 'events WHERE title = "' . esc_sql($data[5]) . '"' );
 					if(is_null($event)){
 						$wpdb->insert('events', array('title' => $data[5], 'slug' => sanitize_title($data[5]), 'url' => $data[6]), array('%s', '%s'));
 					}
@@ -140,19 +140,19 @@ if (($handle = fopen($file, "r")) !== FALSE && $last_line[2] !== $last_url) {
 				// $events = preg_split('#\s(?=\d{4}$)#', $data[5], -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
 
 		  // 	if(count($events) == 1){
-				// 	$event = $wpdb->get_var('SELECT title FROM events WHERE title = "' . esc_sql($events[0]) . '"' );
+				// 	$event = $wpdb->get_var('SELECT title FROM '. $wpdb->prefix . 'events WHERE title = "' . esc_sql($events[0]) . '"' );
 				// 	if(is_null($event)){
 				// 		$wpdb->insert('events', array('title' => $events[0], 'slug' => sanitize_title($events[0]), 'url' => $data[6]), array('%s', '%s'));
 				// 	}
 				// }else{
-				// 	$event = $wpdb->get_var('SELECT title FROM events WHERE title = "' . esc_sql($events[0]) . '" AND year = ' . esc_sql($events[1]));
+				// 	$event = $wpdb->get_var('SELECT title FROM '. $wpdb->prefix . 'events WHERE title = "' . esc_sql($events[0]) . '" AND year = ' . esc_sql($events[1]));
 				// 	if(is_null($event)){
 				// 		$wpdb->insert('events', array('title' => $events[0], 'slug' => sanitize_title($events[0]), 'url' => $data[6], 'year' => $events[1]), array('%s', '%s', '%s'));
 				// 	}
 				// }
 
 				if(trim($data[11]) != ""){
-					$producer = $wpdb->get_var('SELECT title FROM producers WHERE title = "' . esc_sql($data[11]) . '"' );
+					$producer = $wpdb->get_var('SELECT title FROM '. $wpdb->prefix . 'producers WHERE title = "' . esc_sql($data[11]) . '"' );
 					if(is_null($producer)){
 						$wpdb->insert('producers', array('title' => $data[11], 'slug' => sanitize_title($data[11]), 'url' => $data[12]), array('%s', '%s'));
 					}
@@ -161,7 +161,7 @@ if (($handle = fopen($file, "r")) !== FALSE && $last_line[2] !== $last_url) {
 				if(trim($data[7]) != ""){
 					$speakers = json_decode($data[7]);
 					foreach ($speakers as $speaker) {
-						$speaker_id = $wpdb->get_var('SELECT id FROM speakers WHERE title = "' . esc_sql($speaker->speaker) . '"' );
+						$speaker_id = $wpdb->get_var('SELECT id FROM '. $wpdb->prefix . 'speakers WHERE title = "' . esc_sql($speaker->speaker) . '"' );
 						if(is_null($speaker_id)){
 							$insertion_speaker = $wpdb->insert('speakers', array('title' => $speaker->speaker, 'slug' => sanitize_title($speaker->speaker), 'url' => $speaker->url), array('%s', '%s'));
 							if($insertion_speaker && !is_null($talk_id)){
@@ -175,7 +175,7 @@ if (($handle = fopen($file, "r")) !== FALSE && $last_line[2] !== $last_url) {
 				if(trim($data[8]) != ""){
 					$tags = json_decode($data[8]);
 					foreach ($tags as $tag) {
-						$tag_id = $wpdb->get_var('SELECT id FROM tags WHERE title = "' . esc_sql($tag->tag) . '"' );
+						$tag_id = $wpdb->get_var('SELECT id FROM '. $wpdb->prefix . 'tags WHERE title = "' . esc_sql($tag->tag) . '"' );
 						if(is_null($tag_id)){
 							$insertion_tag = $wpdb->insert('tags', array('title' => $tag->tag, 'slug' => sanitize_title($tag->tag), 'url' => $tag->url), array('%s', '%s'));
 							if($insertion_tag && !is_null($talk_id)){

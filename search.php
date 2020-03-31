@@ -56,7 +56,7 @@ if($has_slides){
   $search .= " AND T.has_slides = 1 ";
 }
 
-$sql = "SELECT T.* FROM talks T $join WHERE 1 = 1 $search ORDER by T.date, T.id DESC LIMIT 30";
+$sql = "SELECT T.* FROM ". $wpdb->prefix . "talks T $join WHERE 1 = 1 $search ORDER by T.date, T.id DESC LIMIT 30";
 $prepare = $wpdb->prepare($sql, $args);
 $latests = $wpdb->get_results($prepare);
 

@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
-<?php $random = isset($_GET['r']) && intval($_GET['r']) > 0 ? $_GET['r'] : '1'; 
-$result = $wpdb->get_row($wpdb->prepare("SELECT * FROM talks WHERE id = %s", $random)); ?>
+<?php $random = isset($_GET['r']) && intval($_GET['r']) > 0 ? $_GET['r'] : '1';
+$result = $wpdb->get_row($wpdb->prepare("SELECT * FROM ". $wpdb->prefix . "talks WHERE id = %s", $random)); ?>
 <main>
 
   <?php get_template_part('components/banner'); ?>

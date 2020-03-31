@@ -1,9 +1,9 @@
-<?php 
-$events = $wpdb->get_results("SELECT * FROM events ORDER by title"); set_query_var('events', $events);
-$tags = $wpdb->get_results("SELECT * FROM tags ORDER by title"); set_query_var('tags', $tags);
-$speakers = $wpdb->get_results("SELECT * FROM speakers ORDER by title"); set_query_var('speakers', $speakers);
-$languages = $wpdb->get_results("SELECT * FROM languages ORDER by title"); set_query_var('languages', $languages);
-$producers = $wpdb->get_results("SELECT * FROM producers ORDER by title"); set_query_var('producers', $producers);
+<?php
+$events = $wpdb->get_results("SELECT * FROM ". $wpdb->prefix . "events ORDER by title"); set_query_var('events', $events);
+$tags = $wpdb->get_results("SELECT * FROM ". $wpdb->prefix . "tags ORDER by title"); set_query_var('tags', $tags);
+$speakers = $wpdb->get_results("SELECT * FROM ". $wpdb->prefix . "speakers ORDER by title"); set_query_var('speakers', $speakers);
+$languages = $wpdb->get_results("SELECT * FROM ". $wpdb->prefix . "languages ORDER by title"); set_query_var('languages', $languages);
+$producers = $wpdb->get_results("SELECT * FROM ". $wpdb->prefix . "producers ORDER by title"); set_query_var('producers', $producers);
 ?>
 <!doctype html>
 <html class="no-js no-touch" lang="fr">

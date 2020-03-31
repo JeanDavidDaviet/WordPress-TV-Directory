@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<?php $latests = $wpdb->get_results("SELECT * FROM talks ORDER by date DESC, id DESC LIMIT 18"); ?>
+<?php $latests = $wpdb->get_results("SELECT * FROM ". $wpdb->prefix . "talks ORDER by date DESC, id DESC LIMIT 18"); ?>
 <main>
 
   <?php get_template_part('components/banner'); ?>
